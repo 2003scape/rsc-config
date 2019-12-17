@@ -287,6 +287,19 @@ create new config (de)serializer instance.
 ### config.loadArchive(buffer)
 load a config jag archive buffer.
 
+### config.toArchive()
+return a config jag archive.
+
+### SECTIONS
+an array of config sections.
+
+```javascript
+[
+    'items', 'npcs', 'textures', 'animations', 'objects', 'wallObjects',
+    'roofs', 'tiles', 'spells', 'prayers', 'models'
+]
+```
+
 ## license
 Copyright 2019  2003Scape Team
 
