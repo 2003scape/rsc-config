@@ -1,5 +1,5 @@
 {
-  "name": "rsc-config",
+  "name": "@2003scape/rsc-config",
   "version": "1.0.0",
   "description": "(de)serialize runescape classic definitions",
   "main": "./src/index.js",
