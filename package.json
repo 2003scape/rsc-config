@@ -1,0 +1,33 @@
+{
+  "name": "rsc-config",
+  "version": "1.0.0",
+  "description": "(de)serialize runescape classic definitions",
+  "main": "./src/index.js",
+  "bin": {
+    "rsc-config": "./src/bin.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/2003scape/rsc-config.git"
+  },
+  "keywords": [
+    "runescape",
+    "rsc",
+    "config",
+    "definitions",
+    "cache"
+  ],
+  "author": "2003Scape Team",
+  "license": "AGPL-3.0+",
+  "bugs": {
+    "url": "https://github.com/2003scape/rsc-config/issues"
+  },
+  "homepage": "https://github.com/2003scape/rsc-config#readme",
+  "dependencies": {
+    "@2003scape/rsc-archiver": "^1.1.0",
+    "@swiftcarrot/color-fns": "^3.0.4",
+    "bitfield": "^3.0.0",
+    "mkdirp-promise": "^5.0.1",
+    "yargs": "^15.0.2"
+  }
+}
