@@ -94,7 +94,7 @@ array of deserialized NPCs (non-player-characters; monsters).
 
 ```javascript
 [
-	{
+    {
         name: 'npc name',
         description: 'text displayed when examined',
         command: '', // pickpocket, ....
@@ -129,7 +129,7 @@ array of deserialized NPCs (non-player-characters; monsters).
         walkModel: 6,
         combatModel: 6,
         combatAnimation: 5
-	}
+    }
 ]
 ```
 
@@ -233,12 +233,12 @@ archives.
 
 ```javascript
 [
-	{
-		colour: 'rgb(255, 0, 255)' || null,
-		texture: 12 || null, // corresponds to config.textures
-		type: 'ground' || 'floor' || 'liquid' || 'bridge' || 'hole',
-		blocked: false // does tile block collisions?
-	}
+    {
+        colour: 'rgb(255, 0, 255)' || null,
+        texture: 12 || null, // corresponds to config.textures
+        type: 'ground' || 'floor' || 'liquid' || 'bridge' || 'hole',
+        blocked: false // does tile block collisions?
+    }
 ]
 ```
 
