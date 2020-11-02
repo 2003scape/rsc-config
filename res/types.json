@@ -25,6 +25,7 @@
         "offensive",
         "inventory",
         null,
-        "object"
+        "object",
+        "ground"
     ]
 }

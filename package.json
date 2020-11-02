@@ -24,10 +24,10 @@
   },
   "homepage": "https://github.com/2003scape/rsc-config#readme",
   "dependencies": {
-    "@2003scape/rsc-archiver": "^1.1.0",
-    "@swiftcarrot/color-fns": "^3.0.4",
-    "bitfield": "^3.0.0",
-    "mkdirp-promise": "^5.0.1",
-    "yargs": "^15.0.2"
+    "@2003scape/rsc-archiver": "^1.1.1",
+    "@swiftcarrot/color-fns": "^3.2.0",
+    "bitfield": "^4.0.0",
+    "mkdirp": "^1.0.4",
+    "yargs": "^16.1.0"
   }
 }

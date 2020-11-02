@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const fs = require('fs').promises;
-const mkdirp = require('mkdirp-promise');
+const mkdirp = require('mkdirp');
 const path = require('path');
 const pkg = require('../package');
 const yargs = require('yargs');
@@ -53,7 +53,7 @@ yargs
 
                     await fs.writeFile(
                         path.join(argv.output, 'projectileSprite.json'),
-                        config.projectileSprite);
+                        Buffer.from(config.projectileSprite.toString()));
                 }
             } catch (e) {
                 process.errorCode = 1;

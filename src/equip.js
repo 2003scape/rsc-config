@@ -1,6 +1,6 @@
 // encode/decode equipment bitmasks into arrays
 
-const Bitfield = require('bitfield');
+const Bitfield = require('bitfield').default;
 
 // the bit-order of boolean attributes for equipable items. slots with "replace"
 // will replace the corresponding character sprite rather than overlap; for
