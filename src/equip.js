@@ -1,6 +1,6 @@
 // encode/decode equipment bitmasks into arrays
 
-const Bitfield = require('bitfield').default;
+import Bitfield from 'bitfield';
 
 // the bit-order of boolean attributes for equipable items. slots with "replace"
 // will replace the corresponding character sprite rather than overlap; for
@@ -31,9 +31,10 @@ for (const [slot, name] of Object.entries(EQUIP_NAMES)) {
 function decodeEquip(equipMask) {
     const equipBuffer = Buffer.alloc(2);
     equipBuffer.writeUInt16BE(equipMask);
+
     const equipField = new Bitfield(equipBuffer);
 
-    let slots = [];
+    const slots = [];
 
     for (let i = 0; i < 16; i += 1) {
         if (equipField.get(i)) {
@@ -55,4 +56,4 @@ function encodeEquip(slots) {
     return equipField.buffer.readUInt16BE(0);
 }
 
-module.exports = { decodeEquip, encodeEquip };
+export { decodeEquip, encodeEquip };

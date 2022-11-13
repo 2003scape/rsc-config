@@ -1,6 +1,7 @@
-const typeNames = require('../res/types');
-const { decodeEquip } = require('./equip');
-const { decodeDecoration, intToRgb } = require('./decoration');
+import { decodeEquip } from './equip.js';
+import { decodeDecoration, intToRgb } from './decoration.js';
+
+import TYPES from './types.js';
 
 const decoders = [
     function decodeItems() {
@@ -73,7 +74,7 @@ const decoders = [
         for (const npc of this.npcs) {
             let hostility = this.integerDat.getUByte();
             hostility = hostility > 3 ? 3 : hostility;
-            npc.hostility = typeNames.hostility[hostility];
+            npc.hostility = TYPES.hostility[hostility];
         }
 
         for (const npc of this.npcs) {
@@ -112,7 +113,7 @@ const decoders = [
         }
 
         for (const texture of this.textures) {
-            texture.subName = this.getString()
+            texture.subName = this.getString();
         }
     },
     function decodeAnimations() {
@@ -176,7 +177,7 @@ const decoders = [
         }
 
         for (const object of this.objects) {
-            object.type = typeNames.objects[this.integerDat.getUByte()];
+            object.type = TYPES.objects[this.integerDat.getUByte()];
         }
 
         for (const object of this.objects) {
@@ -244,7 +245,7 @@ const decoders = [
         }
 
         for (const tile of this.tiles) {
-            tile.type = typeNames.tiles[this.integerDat.getUByte()];
+            tile.type = TYPES.tiles[this.integerDat.getUByte()];
         }
 
         for (const tile of this.tiles) {
@@ -273,7 +274,7 @@ const decoders = [
         this.integerDat.caret += this.spells.length;
 
         for (const spell of this.spells) {
-            spell.type = typeNames.spells[this.integerDat.getUByte()];
+            spell.type = TYPES.spells[this.integerDat.getUByte()];
         }
 
         for (const spell of this.spells) {
@@ -319,4 +320,4 @@ function decodeAll() {
     }
 }
 
-module.exports = decodeAll;
+export default decodeAll;

@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 
-const fs = require('fs').promises;
-const mkdirp = require('mkdirp');
-const path = require('path');
-const pkg = require('../package');
-const yargs = require('yargs');
-const { Config, SECTIONS } = require('./');
+import fs from 'fs/promises';
+import mkdirp from 'mkdirp';
+import path from 'path';
+import yargs from 'yargs';
+import { Config, SECTIONS } from './index.js';
+import { hideBin } from 'yargs/helpers';
 
-yargs
+const pkg = JSON.parse(await fs.readFile('./package.json'));
+
+yargs(hideBin(process.argv))
     .scriptName('rsc-config')
     .version(pkg.version)
     .command(
@@ -36,6 +38,8 @@ yargs
         async argv => {
             const config = new Config();
 
+            await config.init();
+
             try {
                 config.loadArchive(await fs.readFile(argv.archive));
 
@@ -46,7 +50,7 @@ yargs
                         JSON.stringify(
                             config[section],
                             null,
-                            argv.pretty ? '    ' : '');
+                            argv.pretty ? 4 : 0);
 
                     await fs.writeFile(
                         path.join(argv.output, `${section}.json`), json);
@@ -81,6 +85,8 @@ yargs
             }
 
             const config = new Config();
+
+            await config.init();
 
             try {
                 config.loadArchive(await fs.readFile(argv.archive));

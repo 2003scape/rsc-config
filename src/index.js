@@ -1,25 +1,40 @@
-const JagBuffer = require('@2003scape/rsc-archiver/src/jag-buffer');
-const decodeAll = require('./decode');
-const { JagArchive } = require('@2003scape/rsc-archiver');
-const { encodeStrings, encodeIntegers } = require('./encode');
+import { JagArchive, JagBuffer } from '@2003scape/rsc-archiver';
+
+import decodeAll from './decode.js';
+import { encodeStrings, encodeIntegers } from './encode.js';
 
 const SECTIONS = [
-    'items', 'npcs', 'textures', 'animations', 'objects', 'wallObjects',
-    'roofs', 'tiles', 'spells', 'prayers', 'models' ];
+    'items',
+    'npcs',
+    'textures',
+    'animations',
+    'objects',
+    'wallObjects',
+    'roofs',
+    'tiles',
+    'spells',
+    'prayers',
+    'models'
+];
 
 class Config {
     constructor() {
         for (const section of SECTIONS) {
             this[section] = [];
         }
+
+        this.archive = new JagArchive();
+    }
+
+    async init() {
+        await this.archive.init();
     }
 
     loadArchive(buffer) {
-        const archive = new JagArchive();
-        archive.readArchive(buffer);
+        this.archive.readArchive(buffer);
 
-        this.stringDat = new JagBuffer(archive.getEntry('string.dat'));
-        this.integerDat = new JagBuffer(archive.getEntry('integer.dat'));
+        this.stringDat = new JagBuffer(this.archive.getEntry('string.dat'));
+        this.integerDat = new JagBuffer(this.archive.getEntry('integer.dat'));
 
         decodeAll.bind(this)();
     }
@@ -36,7 +51,7 @@ class Config {
 
     getString() {
         let s = '';
-        let c;
+        let c = 0;
 
         while (true) {
             c = this.stringDat.getUByte();
@@ -60,12 +75,13 @@ class Config {
     }
 
     toArchive() {
-        const archive = new JagArchive();
-        archive.putEntry('string.dat', this.toStringDat());
-        archive.putEntry('integer.dat', this.toIntegerDat());
+        this.archive.entries.clear();
 
-        return archive.toArchive(true);
+        this.archive.putEntry('string.dat', this.toStringDat());
+        this.archive.putEntry('integer.dat', this.toIntegerDat());
+
+        return this.archive.toArchive(true);
     }
 }
 
-module.exports = { Config, SECTIONS };
+export { Config, SECTIONS };

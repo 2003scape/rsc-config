@@ -1,14 +1,15 @@
 // encode config instance back into original format buffers
 
-const JagBuffer = require('@2003scape/rsc-archiver/src/jag-buffer');
-const typeNames = require('../res/types');
-const { cssColourToInt, encodeDecoration } = require('./decoration');
-const { encodeEquip } = require('./equip');
+import { JagBuffer } from '@2003scape/rsc-archiver';
+import { cssColourToInt, encodeDecoration } from './decoration.js';
+import { encodeEquip } from './equip.js';
+
+import TYPES from './types.js';
 
 const TYPE_LENGTHS = {
-    'UByte': 1,
-    'UShort': 2,
-    'UInt4': 4
+    UByte: 1,
+    UShort: 2,
+    UInt4: 4
 };
 
 function integersToBuffer(integers) {
@@ -108,13 +109,15 @@ function encodeStrings() {
 
     // convert each string to a buffer, add a 0 to the end of each and
     // concat them together
-    return Buffer.concat(strings.map(str => {
-        const buffer = Buffer.alloc(str.length + 1);
-        buffer.write(str);
-        buffer[str.length] = 0;
+    return Buffer.concat(
+        strings.map((str) => {
+            const buffer = Buffer.alloc(str.length + 1);
+            buffer.write(str);
+            buffer[str.length] = 0;
 
-        return buffer;
-    }));
+            return buffer;
+        })
+    );
 }
 
 function encodeIntegers() {
@@ -145,8 +148,7 @@ function encodeIntegers() {
     }
 
     for (const item of this.items) {
-        const value =
-            item.colour === null ? 0 : cssColourToInt(item.colour);
+        const value = item.colour === null ? 0 : cssColourToInt(item.colour);
         integers.push({ type: 'UInt4', value });
     }
 
@@ -159,7 +161,7 @@ function encodeIntegers() {
     // npcs
     integers.push({ type: 'UShort', value: this.npcs.length });
 
-    const npcKeys = ['attack', 'strength', 'hits', 'defense' ];
+    const npcKeys = ['attack', 'strength', 'hits', 'defense'];
 
     for (const key of npcKeys) {
         for (const npc of this.npcs) {
@@ -168,7 +170,7 @@ function encodeIntegers() {
     }
 
     for (const npc of this.npcs) {
-        const value = typeNames.hostility.indexOf(npc.hostility);
+        const value = TYPES.hostility.indexOf(npc.hostility);
         integers.push({ type: 'UByte', value });
     }
 
@@ -232,7 +234,7 @@ function encodeIntegers() {
     }
 
     for (const object of this.objects) {
-        const value = typeNames.objects.indexOf(object.type);
+        const value = TYPES.objects.indexOf(object.type);
         integers.push({ type: 'UByte', value });
     }
 
@@ -251,7 +253,8 @@ function encodeIntegers() {
         for (const wallObject of this.wallObjects) {
             const value = encodeDecoration(
                 wallObject[`colour${dir}`],
-                wallObject[`texture${dir}`]);
+                wallObject[`texture${dir}`]
+            );
             integers.push({ type: 'UInt4', value });
         }
     }
@@ -280,7 +283,7 @@ function encodeIntegers() {
     }
 
     for (const tile of this.tiles) {
-        const value = typeNames.tiles.indexOf(tile.type);
+        const value = TYPES.tiles.indexOf(tile.type);
         integers.push({ type: 'UByte', value });
     }
 
@@ -302,7 +305,7 @@ function encodeIntegers() {
     }
 
     for (const spell of this.spells) {
-        const value = typeNames.spells.indexOf(spell.type);
+        const value = TYPES.spells.indexOf(spell.type);
         integers.push({ type: 'UByte', value });
     }
 
@@ -334,4 +337,4 @@ function encodeIntegers() {
     return integersToBuffer(integers);
 }
 
-module.exports = { encodeStrings, encodeIntegers };
+export { encodeStrings, encodeIntegers };

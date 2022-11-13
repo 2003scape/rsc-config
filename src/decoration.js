@@ -1,6 +1,6 @@
 // various colour and texture related encoding/decoding functions
 
-const { cssColor, rgb2hex } = require('@swiftcarrot/color-fns');
+import { cssColor, rgb2hex } from '@swiftcarrot/color-fns';
 
 const COLOUR_TRANSPARENT = 12345678;
 
@@ -35,10 +35,10 @@ function decodeDecoration(decoration) {
     if (decoration === COLOUR_TRANSPARENT) {
         colour = 'transparent';
     } else if (decoration < 0) {
-        decoration = -(decoration) - 1;
+        decoration = -decoration - 1;
 
-        const red = decoration >> 10 & 0x1f;
-        const green = decoration >> 5 & 0x1f;
+        const red = (decoration >> 10) & 0x1f;
+        const green = (decoration >> 5) & 0x1f;
         const blue = decoration & 0x1f;
 
         colour = intToRgb((red << 19) + (green << 11) + (blue << 3));
@@ -63,7 +63,7 @@ function encodeDecoration(colour, texture) {
     return decoration;
 }
 
-module.exports = {
+export {
     COLOUR_TRANSPARENT,
     cssColourToInt,
     decodeDecoration,

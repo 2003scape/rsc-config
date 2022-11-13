@@ -1,8 +1,9 @@
 {
   "name": "@2003scape/rsc-config",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "(de)serialize runescape classic definitions",
   "main": "./src/index.js",
+  "type": "module",
   "bin": {
     "rsc-config": "./src/bin.js"
   },
@@ -24,10 +25,10 @@
   },
   "homepage": "https://github.com/2003scape/rsc-config#readme",
   "dependencies": {
-    "@2003scape/rsc-archiver": "^1.1.1",
+    "@2003scape/rsc-archiver": "^2.0.0",
     "@swiftcarrot/color-fns": "^3.2.0",
-    "bitfield": "^4.0.0",
+    "bitfield": "^4.1.0",
     "mkdirp": "^1.0.4",
-    "yargs": "^16.1.0"
+    "yargs": "^17.6.2"
   }
 }

@@ -1,8 +1,9 @@
-const fs = require('fs');
-const { Config } = require('./src');
+import fs from 'fs/promises';
+import { Config } from './src/index.js';
 
 const config = new Config();
-config.loadArchive(fs.readFileSync('./config85.jag'));
+await config.init();
+config.loadArchive(await fs.readFile('./config85.jag'));
 
 config.items = config.items.map(item => {
     // Iron Mace -> ecaM norI
@@ -24,4 +25,4 @@ config.animations = config.animations.map(animation => {
     return animation;
 });
 
-fs.writeFileSync('./config86.jag', config.toArchive());
+await fs.writeFile('./config86.jag', config.toArchive());
